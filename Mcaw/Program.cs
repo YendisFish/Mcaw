@@ -35,6 +35,7 @@ namespace Mcaw.Main
             catch (Exception ex)
             {
                 Console.WriteLine("Could not execute!");
+                //Maybe add better logic here
             }
         }
     }
