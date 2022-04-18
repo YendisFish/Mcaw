@@ -10,7 +10,6 @@ namespace Mcaw.Main
         
         public static async Task Main()
         {
-
             // Clear window for shell (adds good boi effect)
             Process.Start("clear");
 
