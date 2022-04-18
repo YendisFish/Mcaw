@@ -17,6 +17,7 @@ namespace Mcaw.Main.Executors
             }
             
             inf.RedirectStandardOutput = true;
+            inf.UseShellExecute = false;
             
             Process? proc = Process.Start(inf);
             
@@ -34,12 +35,24 @@ namespace Mcaw.Main.Executors
             {
                 List<string> cmd = await Construct.ConstructProgramArgs(input);
 
-                if (cmd[1] == "~" || cmd[1] == "" || cmd[1] == null)
+                try
                 {
-                    cmd[1] = "/home/" + Environment.UserName + "/";
-                }
+                    if (cmd[1] == "~" || cmd[1] == "" || cmd[1] == null)
+                    {
+                        cmd[1] = "/home/" + Environment.UserName + "/";
+                    }
 
-                Directory.SetCurrentDirectory(cmd[1]);
+                    Directory.SetCurrentDirectory(cmd[1]);
+                }
+                catch (Exception ex)
+                {
+                    if (cmd[1] == "~" || cmd[1] == "" || cmd[1] == null)
+                    {
+                        cmd[1] = "C:/Users/" + Environment.UserName + "/";
+                    }
+
+                    Directory.SetCurrentDirectory(cmd[1]);
+                }
 
                 return new TaskOut("Changed!", Directory.GetCurrentDirectory());
             }
@@ -52,6 +65,11 @@ namespace Mcaw.Main.Executors
             if (input.Contains("cls"))
             {
                 return await BasicExecutor("clear");
+            }
+
+            if (input.Contains("vim"))
+            {
+                return await BasicExecutor(input + " --not-a-term");
             }
 
             return await BasicExecutor(input);

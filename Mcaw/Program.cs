@@ -27,15 +27,21 @@ namespace Mcaw.Main
 
             try
             {
-                TaskOut outp = await Executors.ExecutorLib.SafeExecute(input.Trim());
-                Console.WriteLine(outp.output);
+                if (input.Contains("|") || input.Contains("vim"))
+                {
+                    Console.WriteLine("This is not yet supported!");
+                }
+                else
+                {
+                    TaskOut outp = await Executors.ExecutorLib.SafeExecute(input.Trim());
+                    Console.WriteLine(outp.output);
 
-                inf.CurrentDirectory = outp.currentdir;
+                    inf.CurrentDirectory = outp.currentdir;   
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Could not execute!");
-                //Maybe add better logic here
             }
         }
     }

@@ -8,7 +8,8 @@ namespace Mcaw.Main.Writers
     {
         public static async Task Write(SystemInfo inf)
         {
-            Console.Write($"[{inf.Username.Pastel(Color.FromArgb(200, 100, 200))} | {inf.CurrentDirectory.Pastel(Color.FromArgb(20, 150, 150))}] $ > ");
+            string header = $"[{inf.Username.Pastel(Color.FromArgb(200, 100, 200))} | {inf.CurrentDirectory.Pastel(Color.FromArgb(20, 150, 150))}] $ > ";
+            Console.Write(header);
         }
     }
 }
